@@ -6,7 +6,7 @@ Be careful using a global variables for vulnerable data and scripts. (Others can
 ]]
 repeat wait() until game:IsLoaded()
 
-local URL = "https://raw.githubusercontent.com/potatolegend123/MonarchCore/refs/heads/main/"
+local URL = "https://raw.githubusercontent.com/potatolegend123/MonarchCore/main/"
 REPO = {
 	UTILITY = URL .. "Utility/",
 	GAMES = URL .. "Games/",
