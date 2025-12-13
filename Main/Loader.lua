@@ -37,4 +37,18 @@ if GAME_INFO == nil then
 	return 
 end
 
-loadstring(game:HttpGet(REPO_MAIN .. "Main.lua"))()
+--loadstring(game:HttpGet(REPO_MAIN .. "Main.lua"))()
+loadstring(game:HttpGet(REPO_UTILITY .. "Services.lua"))()
+
+Trove = loadstring(game:HttpGet(REPO_UTILITY .. "Trove.lua"))()
+
+loadstring(game:HttpGet(REPO_UTILITY .. "Player.lua"))()
+loadstring(game:HttpGet(REPO_UTILITY .. "Essentials.lua"))()
+
+GAME_NAME = GAME_INFO.name
+
+loadstring(game:HttpGet(REPO_MAIN .. "Top.lua"))()
+loadstring(game:HttpGet(REPO_GAMES .. GAME_INFO.link))()
+loadstring(game:HttpGet(REPO_MAIN .. "Bottom.lua"))()
+
+GAME_NAME = nil
