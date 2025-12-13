@@ -1,3 +1,6 @@
+local REPO = "https://raw.githubusercontent.com/potatolegend123/MonarchCore/refs/heads/main/"
+local REPO_LIBRARY = REPO .. "Library/"
+
 Library = loadstring(game:HttpGet(REPO_LIBRARY .. 'Library.lua'))()
 ThemeManager = loadstring(game:HttpGet(REPO_LIBRARY .. 'ThemeManager.lua'))()
 SaveManager = loadstring(game:HttpGet(REPO_LIBRARY .. 'SaveManager.lua'))()
