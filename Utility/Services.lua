@@ -1,4 +1,4 @@
-getgenv().GetService = function(service: string)
+function GetService(service: string)
     return game:GetService(service)
 end
 

@@ -11,7 +11,7 @@ local FPS = 60;
 local GetPing = (function() return math.floor(StatsService.Network.ServerStatsItem['Data Ping']:GetValue()) end)
 local CanDoPing = pcall(function() return GetPing(); end)
 
-local WatermarkConnection = RunService.RenderStepped:Connect(function()
+Troves.Global:Connect(RunService.RenderStepped, function()
 	FrameCounter += 1;
 
 	if (tick() - FrameTimer) >= 1 then
@@ -21,19 +21,27 @@ local WatermarkConnection = RunService.RenderStepped:Connect(function()
 	end;
 
 	if CanDoPing then
-		Library:SetWatermark(('LinoriaLib demo | %d fps | %d ms'):format(
+		Library:SetWatermark(('Monarch Core | %d fps | %d ms | Server Runtime: %d | Script Runtime: %d'):format(
 			math.floor(FPS),
-			GetPing()
+			GetPing(),
+			TextModule:Timer(game.Workspace.DistributedGameTime),
+			TextModule:Timer(os.time()- TimeExecuted),
 		));
 	else
-		Library:SetWatermark(('LinoriaLib demo | %d fps'):format(
-			math.floor(FPS)
+		Library:SetWatermark(('Monarch Core | %d fps | Server Runtime: %d | Script Runtime: %d'):format(
+			math.floor(FPS),
+			TextModule:Timer(game.Workspace.DistributedGameTime),
+			TextModule:Timer(os.time()- TimeExecuted),
 		));
 	end
 end);
 
 Library:OnUnload(function()
-	WatermarkConnection:Disconnect()
+	ESPLibrary.Unload()
+	for i, v in Troves do
+		v:Destroy()
+		v = nil
+	end
 
 	print('Unloaded!')
 	Library.Unloaded = true
@@ -45,7 +53,6 @@ print(Tabs.Settings)
 local MenuGroup = Tabs.Settings:AddLeftGroupbox('Menu')
 
 MenuGroup:AddToggle("KeybindMenuOpen", { Default = Library.KeybindFrame.Visible, Text = "Open Keybind Menu", Callback = function(value) Library.KeybindFrame.Visible = value end})
-MenuGroup:AddToggle("ShowCustomCursor", {Text = "Custom Cursor", Default = true, Callback = function(Value) Library.ShowCustomCursor = Value end})
 MenuGroup:AddDivider()
 MenuGroup:AddLabel("Menu bind"):AddKeyPicker("MenuKeybind", { Default = "RightShift", NoUI = true, Text = "Menu keybind" })
 MenuGroup:AddButton("Unload", function() Library:Unload() end)
@@ -71,12 +78,8 @@ SaveManager:SetIgnoreIndexes({ 'MenuKeybind' })
 -- use case for doing it this way:
 -- a script hub could have themes in a global folder
 -- and game configs in a separate folder per game
-ThemeManager:SetFolder('MyScriptHub')
-SaveManager:SetFolder('MyScriptHub/specific-game')
-SaveManager:SetSubFolder('specific-place') -- if the game has multiple places inside of it (for example: DOORS) 
-					   -- you can use this to save configs for those places separately
-					   -- The path in this script would be: MyScriptHub/specific-game/settings/specific-place
-					   -- [ This is optional ]
+ThemeManager:SetFolder('MonarchCore/Themes')
+SaveManager:SetFolder('MonarchCore/' .. GAME_NAME)
 
 -- Builds our config menu on the right side of our tab
 SaveManager:BuildConfigSection(Tabs.Settings)
