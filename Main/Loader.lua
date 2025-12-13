@@ -11,6 +11,7 @@ local REPO_UTILITY = REPO .. "Utility/"
 local REPO_MAIN = REPO .. "Main/"
 
 local HttpService = game:GetService("HttpService")
+local StarterGui = game:GetService("StarterGui")
 
 local UNIVERSE_ID = HttpService:JSONDecode(
 	request({
