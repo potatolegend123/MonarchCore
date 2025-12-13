@@ -39,5 +39,5 @@ Window = Library:CreateWindow({
 Tabs = {
 	-- Creates a new tab titled Main
 	Main = Window:AddTab('Main'),
-	['UI Settings'] = Window:AddTab('UI Settings'),
+	Settings = Window:AddTab('Settings'),
 }
