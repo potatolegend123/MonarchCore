@@ -1,7 +1,7 @@
 Tabs.Misc = Window:AddTab('Misc')
 
-local SERVER_BOX = Tabs.Main:AddLeftGroupbox('Server')
-local CHARACTER_BOX = Tabs.Main:AddRightGroupbox('Character')
+local SERVER_BOX = Tabs.Misc:AddLeftGroupbox('Server')
+local CHARACTER_BOX = Tabs.Misc:AddRightGroupbox('Character')
 
 SERVER_BOX:AddButton({
 	Text = 'Rejoin',
@@ -122,10 +122,10 @@ CHARACTER_BOX:AddToggle('NOCLIP_TOGGLE', {
 RunService.Heartbeat:Connect(function()
     if _PLAYER.Alive then
         if Toggles.WALKSPEED_TOGGLE.Value then
-            Humanoid.WalkSpeed = Sliders.WALKSPEED_SLIDER.Value
+            Humanoid.WalkSpeed = Options.WALKSPEED_SLIDER.Value
         end
         if Toggles.JUMPPOWER_TOGGLE.Value then
-            Humanoid.JumpPower = Sliders.JUMPPOWER_SLIDER.Value
+            Humanoid.JumpPower = Options.JUMPPOWER_SLIDER.Value
         end
         if Toggles.NOCLIP_TOGGLE.Value then
             if Character ~= nil then

@@ -21,17 +21,12 @@ Troves.Global:Connect(RunService.RenderStepped, function()
 	end;
 
 	if CanDoPing then
-		Library:SetWatermark(('Monarch Core | %d fps | %d ms | Server Runtime: %d | Script Runtime: %d'):format(
-			math.floor(FPS),
-			GetPing(),
-			TextModule:Timer(game.Workspace.DistributedGameTime),
-			TextModule:Timer(os.time()- TimeExecuted),
+		Library:SetWatermark((
+			`Monarch Core | {math.floor(FPS)} fps | {GetPing()} ms | Server Runtime: {TextModule:Timer(game.Workspace.DistributedGameTime)} | Script Runtime: {TextModule:Timer(os.time() - TimeExecuted)}`
 		));
 	else
-		Library:SetWatermark(('Monarch Core | %d fps | Server Runtime: %d | Script Runtime: %d'):format(
-			math.floor(FPS),
-			TextModule:Timer(game.Workspace.DistributedGameTime),
-			TextModule:Timer(os.time()- TimeExecuted),
+		Library:SetWatermark((
+			`Monarch Core | {math.floor(FPS)} fps | Server Runtime: {TextModule:Timer(game.Workspace.DistributedGameTime)} | Script Runtime: {TextModule:Timer(os.time( ) - TimeExecuted)}`
 		));
 	end
 end);
