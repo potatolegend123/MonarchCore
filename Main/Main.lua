@@ -16,6 +16,7 @@ SoundService = GetService("SoundService")
 ProximityPromptService = GetService("ProximityPromptService")
 GroupService = GetService("GroupService")
 ContextActionService = GetService("ContextActionService")
+StatsService = GetService("Stats")
 
 UNIVERSE_ID = HttpService:JSONDecode(
 	request({

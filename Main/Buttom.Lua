@@ -6,10 +6,10 @@ Library:SetWatermarkVisibility(true)
 local FrameTimer = tick()
 local FrameCounter = 0;
 local FPS = 60;
-local GetPing = (function() return math.floor(game:GetService('Stats').Network.ServerStatsItem['Data Ping']:GetValue()) end)
+local GetPing = (function() return math.floor(StatsService.Network.ServerStatsItem['Data Ping']:GetValue()) end)
 local CanDoPing = pcall(function() return GetPing(); end)
 
-local WatermarkConnection = game:GetService('RunService').RenderStepped:Connect(function()
+local WatermarkConnection = RunService.RenderStepped:Connect(function()
 	FrameCounter += 1;
 
 	if (tick() - FrameTimer) >= 1 then
