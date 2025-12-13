@@ -26,7 +26,7 @@ local UNIVERSE_ID = HttpService:JSONDecode(
 	}).Body
 ).universeId
 
-local GAME_INFO = HttpService:JSONDecode(
+GAME_INFO = HttpService:JSONDecode(
 	request({
 		Url = REPO.UTILITY .. `Lists.json`, 
 		Method = "GET"
