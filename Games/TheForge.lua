@@ -1,7 +1,7 @@
 -- Groupbox and Tabbox inherit the same functions
 -- except Tabboxes you have to call the functions on a tab (Tabbox:AddTab(name))
 local LeftGroupBox = Tabs.Main:AddLeftGroupbox('Groupbox')
-print('[Monarch Core | DEBUGGING]: 1')
+
 -- We can also get our Main tab via the following code:
 -- local LeftGroupBox = Window.Tabs.Main:AddLeftGroupbox('Groupbox')
 
@@ -57,7 +57,7 @@ LeftGroupBox:AddToggle('MyToggle', {
 	end
 })
 
-print('[Monarch Core | DEBUGGING]: 2')
+
 -- Fetching a toggle object for later use:
 -- Toggles.MyToggle.Value
 
@@ -70,10 +70,10 @@ Toggles.MyToggle:OnChanged(function()
 	-- here we get our toggle object & then get its value
 	print('MyToggle changed to:', Toggles.MyToggle.Value)
 end)
-print('[Monarch Core | DEBUGGING]: 3')
+
 -- This should print to the console: "My toggle state changed! New value: false"
 Toggles.MyToggle:SetValue(false)
-print('[Monarch Core | DEBUGGING]: 4')
+
 -- 1/15/23
 -- Deprecated old way of creating buttons in favor of using a table
 -- Added DoubleClick button functionality
@@ -104,7 +104,7 @@ local MyButton = LeftGroupBox:AddButton({
 	Disabled = false, -- Will disable the button (true / false)
 	Visible = true -- Will make the button invisible (true / false)
 })
-print('[Monarch Core | DEBUGGING]: 5')
+
 local MyButton2 = MyButton:AddButton({
 	Text = 'Sub button',
 	Func = function()
@@ -114,7 +114,7 @@ local MyButton2 = MyButton:AddButton({
 	DoubleClick = true, -- You will have to click this button twice to trigger the callback
 	Tooltip = 'This is the sub button (double click me!)'
 })
-print('[Monarch Core | DEBUGGING]: 6')
+
 local MyDisabledButton = LeftGroupBox:AddButton({
 	Text = 'Disabled Button',
 	Func = function()
@@ -125,7 +125,7 @@ local MyDisabledButton = LeftGroupBox:AddButton({
 	DisabledTooltip = 'I am disabled!', -- Information shown when you hover over the button while it's disabled
 	Disabled = true
 })
-print('[Monarch Core | DEBUGGING]:7 ')
+
 --[[
 	NOTE: You can chain the button methods!
 	EXAMPLE:
@@ -146,12 +146,12 @@ LeftGroupBox:AddLabel('SecondTestLabel', {
 	Text = 'This is a label made with table options and an index',
 	DoesWrap = true -- Defaults to false
 })
-print('[Monarch Core | DEBUGGING]: 8')
+
 LeftGroupBox:AddLabel('SecondTestLabel', {
 	Text = 'This is a label that doesn\'t wrap it\'s own text',
 	DoesWrap = false -- Defaults to false
 })
-print('[Monarch Core | DEBUGGING]: 9')
+
 -- Labels is a table inside Library that is added to getgenv()
 -- You index Library.Labels with the specified index, in this case it is 'SecondTestLabel' & 'TestLabel'
 -- To set the text of the label you do label:SetText
@@ -163,7 +163,7 @@ print('[Monarch Core | DEBUGGING]: 9')
 -- Groupbox:AddDivider
 -- Arguments: None
 LeftGroupBox:AddDivider()
-print('[Monarch Core | DEBUGGING]: 10')
+
 --[[
 	Groupbox:AddSlider
 	Arguments: Idx, SliderOptions
@@ -206,7 +206,7 @@ LeftGroupBox:AddSlider('MySlider', {
 	Disabled = false, -- Will disable the slider (true / false)
 	Visible = true, -- Will make the slider invisible (true / false)
 })
-print('[Monarch Core | DEBUGGING]: 11')
+
 -- Options is a table added to getgenv() by the library
 -- You index Options with the specified index, in this case it is 'MySlider'
 -- To get the value of the slider you do slider.Value
@@ -215,10 +215,10 @@ local Number = Options.MySlider.Value
 Options.MySlider:OnChanged(function()
 	print('MySlider was changed! New value:', Options.MySlider.Value)
 end)
-print('[Monarch Core | DEBUGGING]: 12')
+
 -- This should print to the console: "MySlider was changed! New value: 3"
 Options.MySlider:SetValue(3)
-print('[Monarch Core | DEBUGGING]: 13')
+
 LeftGroupBox:AddSlider('MySlider2', {
 	Text = 'This is my custom display slider!',
 	Default = 0,
@@ -239,7 +239,7 @@ LeftGroupBox:AddSlider('MySlider2', {
 	Disabled = false, -- Will disable the slider (true / false)
 	Visible = true, -- Will make the slider invisible (true / false)
 })
-print('[Monarch Core | DEBUGGING]: 14')
+
 -- Groupbox:AddInput
 -- Arguments: Idx, Info
 LeftGroupBox:AddInput('MyTextbox', {
@@ -258,16 +258,16 @@ LeftGroupBox:AddInput('MyTextbox', {
 		print('[cb] Text updated. New text:', Value)
 	end
 })
-print('[Monarch Core | DEBUGGING]: 15')
+
 Options.MyTextbox:OnChanged(function()
 	print('Text updated. New text:', Options.MyTextbox.Value)
 end)
 
 -- Groupbox:AddDropdown
 -- Arguments: Idx, Info
-print('[Monarch Core | DEBUGGING]: 16')
+
 local DropdownGroupBox = Tabs.Main:AddRightGroupbox('Dropdowns')
-print('[Monarch Core | DEBUGGING]: 17')
+
 DropdownGroupBox:AddDropdown('MyDropdown', {
 	Values = { 'This', 'is', 'a', 'dropdown' },
 	Default = 1, -- number index of the value / string
@@ -286,13 +286,13 @@ DropdownGroupBox:AddDropdown('MyDropdown', {
 	Disabled = false, -- Will disable the dropdown (true / false)
 	Visible = true, -- Will make the dropdown invisible (true / false)
 })
-print('[Monarch Core | DEBUGGING]: 18')
+
 Options.MyDropdown:OnChanged(function()
 	print('Dropdown got changed. New value:', Options.MyDropdown.Value)
 end)
-print('[Monarch Core | DEBUGGING]: 19')
+
 Options.MyDropdown:SetValue('This')
-print('[Monarch Core | DEBUGGING]: 20')
+
 DropdownGroupBox:AddDropdown('MySearchableDropdown', {
 	Values = { 'This', 'is', 'a', 'searchable', 'dropdown' },
 	Default = 1, -- number index of the value / string
@@ -311,7 +311,7 @@ DropdownGroupBox:AddDropdown('MySearchableDropdown', {
 	Disabled = false, -- Will disable the dropdown (true / false)
 	Visible = true, -- Will make the dropdown invisible (true / false)
 })
-print('[Monarch Core | DEBUGGING]: 21')
+
 DropdownGroupBox:AddDropdown('MyDisplayFormattedDropdown', {
 	Values = { 'This', 'is', 'a', 'formatted', 'dropdown' },
 	Default = 1, -- number index of the value / string
@@ -338,7 +338,7 @@ DropdownGroupBox:AddDropdown('MyDisplayFormattedDropdown', {
 	Disabled = false, -- Will disable the dropdown (true / false)
 	Visible = true, -- Will make the dropdown invisible (true / false)
 })
-print('[Monarch Core | DEBUGGING]: 22')
+
 -- Multi dropdowns
 DropdownGroupBox:AddDropdown('MyMultiDropdown', {
 	-- Default is the numeric index (e.g. "This" would be 1 since it if first in the values list)
@@ -360,12 +360,12 @@ DropdownGroupBox:AddDropdown('MyMultiDropdown', {
 		end
 	end
 })
-print('[Monarch Core | DEBUGGING]: 23')
+
 Options.MyMultiDropdown:SetValue({
 	This = true,
 	is = true,
 })
-print('[Monarch Core | DEBUGGING]: 24')
+
 DropdownGroupBox:AddDropdown('MyDisabledDropdown', {
     Values = { 'This', 'is', 'a', 'dropdown' },
     Default = 1, -- number index of the value / string
@@ -382,7 +382,7 @@ DropdownGroupBox:AddDropdown('MyDisabledDropdown', {
     Disabled = true, -- Will disable the dropdown (true / false)
     Visible = true, -- Will make the dropdown invisible (true / false)
 })
-print('[Monarch Core | DEBUGGING]: 25')
+
 DropdownGroupBox:AddDropdown('MyDisabledValueDropdown', {
     Values = { 'This', 'is', 'a', 'dropdown', 'with', 'disabled', 'value' },
     DisabledValues = { 'disabled' }, -- Disabled Values that are unclickable
@@ -400,7 +400,7 @@ DropdownGroupBox:AddDropdown('MyDisabledValueDropdown', {
     Disabled = false, -- Will disable the dropdown (true / false)
     Visible = true, -- Will make the dropdown invisible (true / false)
 })
-print('[Monarch Core | DEBUGGING]: 26')
+
 DropdownGroupBox:AddDropdown('MyVeryLongDropdown', {
 	Values = { 'This', 'is', 'a', 'very', 'long', 'dropdown', 'with', 'a', 'lot', 'of', 'values', 'but', 'you', 'can', 'see', 'more', 'than', '8', 'values' },
 	Default = 1, -- number index of the value / string
@@ -421,7 +421,7 @@ DropdownGroupBox:AddDropdown('MyVeryLongDropdown', {
 	Disabled = false, -- Will disable the dropdown (true / false)
 	Visible = true, -- Will make the dropdown invisible (true / false)
 })
-print('[Monarch Core | DEBUGGING]: 27')
+
 DropdownGroupBox:AddDropdown('MyPlayerDropdown', {
 	SpecialType = 'Player',
 	ExcludeLocalPlayer = true, -- true / false, excludes the localplayer from the Player type
@@ -432,7 +432,7 @@ DropdownGroupBox:AddDropdown('MyPlayerDropdown', {
 		print('[cb] Player dropdown got changed:', Value)
 	end
 })
-print('[Monarch Core | DEBUGGING]: 28')
+
 DropdownGroupBox:AddDropdown('MyTeamDropdown', {
 	SpecialType = 'Team',
 	Text = 'A team dropdown',
@@ -442,7 +442,7 @@ DropdownGroupBox:AddDropdown('MyTeamDropdown', {
 		print('[cb] Team dropdown got changed:', Value)
 	end
 })
-print('[Monarch Core | DEBUGGING]: 29')
+
 -- Label:AddColorPicker
 -- Arguments: Idx, Info
 
@@ -457,17 +457,17 @@ LeftGroupBox:AddLabel('Color'):AddColorPicker('ColorPicker', {
 		print('[cb] Color changed!', Value)
 	end
 })
-print('[Monarch Core | DEBUGGING]: 30')
+
 Options.ColorPicker:OnChanged(function()
 	print('Color changed!', Options.ColorPicker.Value)
 	print('Transparency changed!', Options.ColorPicker.Transparency)
 end)
-print('[Monarch Core | DEBUGGING]: 31')
+
 Options.ColorPicker:SetValueRGB(Color3.fromRGB(0, 255, 140))
 
 -- Label:AddKeyPicker
 -- Arguments: Idx, Info
-print('[Monarch Core | DEBUGGING]: 32')
+
 LeftGroupBox:AddLabel('Keybind'):AddKeyPicker('KeyPicker', {
 	-- SyncToggleState only works with toggles.
 	-- It allows you to make a keybind which has its state synced with its parent toggle
@@ -494,17 +494,17 @@ LeftGroupBox:AddLabel('Keybind'):AddKeyPicker('KeyPicker', {
 		print("[cb] Keybind changed!", NewKey, table.unpack(NewModifiers or {}))
 	end,
 })
-print('[Monarch Core | DEBUGGING]: 33')
+
 -- OnClick is only fired when you press the keybind and the mode is Toggle
 -- Otherwise, you will have to use Keybind:GetState()
 Options.KeyPicker:OnClick(function()
 	print('Keybind clicked!', Options.KeyPicker:GetState())
 end)
-print('[Monarch Core | DEBUGGING]: 34')
+
 Options.KeyPicker:OnChanged(function()
 	print("Keybind changed!", Options.KeyPicker.Value, table.unpack(Options.KeyPicker.Modifiers or {}))
 end)
-print('[Monarch Core | DEBUGGING]: 35')
+
 task.spawn(function()
 	while task.wait(1) do
 		-- example for checking if a keybind is being pressed
@@ -516,13 +516,13 @@ task.spawn(function()
 		if Library.Unloaded then break end
 	end
 end)
-print('[Monarch Core | DEBUGGING]: 36')
+
 Options.KeyPicker:SetValue({ 'MB2', 'Hold' }) -- Sets keybind to MB2, mode to Hold
-print('[Monarch Core | DEBUGGING]: 37')
+
 -- Label:KeyPicker (Press Mode)
 
 local KeybindNumber = 0
-print('[Monarch Core | DEBUGGING]: 38')
+
 LeftGroupBox:AddLabel("Press Keybind"):AddKeyPicker("KeyPicker2", {
 	-- Example: Press Keybind which you use to run a callback when the key was pressed.
 
@@ -539,7 +539,7 @@ LeftGroupBox:AddLabel("Press Keybind"):AddKeyPicker("KeyPicker2", {
 		print("[cb] Keybind clicked! Number increased to:", KeybindNumber)
 	end
 })
-print('[Monarch Core | DEBUGGING]: 39')
+
 -- Label:AddDropdown
 -- Arguments: Idx, Info
 
@@ -564,48 +564,48 @@ LeftGroupBox:AddLabel('Dropdown'):AddDropdown('MyDropdown', {
 	Disabled = false, -- Will disable the dropdown (true / false)
 	Visible = true, -- Will make the dropdown invisible (true / false)
 })
-print('[Monarch Core | DEBUGGING]: 40')
+
 -- Long text label to demonstrate UI scrolling behaviour.
 local LeftGroupBox2 = Tabs.Main:AddLeftGroupbox('Groupbox #2');
 LeftGroupBox2:AddLabel('Oh no...\nThis label spans multiple lines!\n\nWe\'re gonna run out of UI space...\nJust kidding! Scroll down!\n\n\nHello from below!', true)
-print('[Monarch Core | DEBUGGING]: 41')
+
 local TabBox = Tabs.Main:AddRightTabbox() -- Add Tabbox on right side
-print('[Monarch Core | DEBUGGING]: 42')
+
 -- Anything we can do in a Groupbox, we can do in a Tabbox tab (AddToggle, AddSlider, AddLabel, etc etc...)
 local Tab1 = TabBox:AddTab('Tab 1')
 Tab1:AddToggle('Tab1Toggle', { Text = 'Tab1 Toggle' });
-print('[Monarch Core | DEBUGGING]: 43')
+
 local Tab2 = TabBox:AddTab('Tab 2')
 Tab2:AddToggle('Tab2Toggle', { Text = 'Tab2 Toggle' });
-print('[Monarch Core | DEBUGGING]: 44')
+
 -- Dependency boxes let us control the visibility of UI elements depending on another UI elements state.
 -- e.g. we have a 'Feature Enabled' toggle, and we only want to show that features sliders, dropdowns etc when it's enabled!
 -- Dependency box example:
 local RightGroupbox = Tabs.Main:AddRightGroupbox('Groupbox #3');
 RightGroupbox:AddToggle('ControlToggle', { Text = 'Dependency box toggle' });
-print('[Monarch Core | DEBUGGING]: 45')
+
 local Depbox = RightGroupbox:AddDependencyBox();
 Depbox:AddToggle('DepboxToggle', { Text = 'Sub-dependency box toggle' });
-print('[Monarch Core | DEBUGGING]: 46')
+
 -- We can also nest dependency boxes!
 -- When we do this, our SupDepbox automatically relies on the visiblity of the Depbox - on top of whatever additional dependencies we set
 local SubDepbox = Depbox:AddDependencyBox();
 SubDepbox:AddSlider('DepboxSlider', { Text = 'Slider', Default = 50, Min = 0, Max = 100, Rounding = 0 });
 SubDepbox:AddDropdown('DepboxDropdown', { Text = 'Dropdown', Default = 1, Values = {'a', 'b', 'c'} });
-print('[Monarch Core | DEBUGGING]: 47')
+
 local SecretDepbox = SubDepbox:AddDependencyBox();
 SecretDepbox:AddLabel('You found a seĉret!')
-print('[Monarch Core | DEBUGGING]: 48')
+
 Depbox:SetupDependencies({
 	{ Toggles.ControlToggle, true } -- We can also pass `false` if we only want our features to show when the toggle is off!
 });
-print('[Monarch Core | DEBUGGING]: 49')
+
 SubDepbox:SetupDependencies({
 	{ Toggles.DepboxToggle, true }
 });
-print('[Monarch Core | DEBUGGING]: 50')
+
 SecretDepbox:SetupDependencies({
 	{ Options.DepboxDropdown, 'ĉ'} -- In the case of dropdowns, it will automatically check if the specified dropdown value is selected
 })
-print('[Monarch Core | DEBUGGING]: 51')
-print('Middle loaded!')
+
+print('Library loaded!')

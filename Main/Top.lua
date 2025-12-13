@@ -23,7 +23,7 @@ Window = Library:CreateWindow({
 	Center = true,
 	AutoShow = true,
 	Resizable = true,
-	ShowCustomCursor = true,
+	ShowCustomCursor = false,
 	UnlockMouseWhileOpen = true,
 	NotifySide = "Left",
 	TabPadding = 8,
@@ -39,5 +39,4 @@ Window = Library:CreateWindow({
 Tabs = {
 	-- Creates a new tab titled Main
 	Main = Window:AddTab('Main'),
-	Settings = Window:AddTab('Settings'),
 }

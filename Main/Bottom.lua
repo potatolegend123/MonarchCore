@@ -2,6 +2,8 @@
 -- Sets the watermark visibility
 Library:SetWatermarkVisibility(true)
 
+Tabs.Settings = Window:AddTab('Settings')
+
 -- Example of dynamically-updating watermark with common traits (fps and ping)
 local FrameTimer = tick()
 local FrameCounter = 0;
