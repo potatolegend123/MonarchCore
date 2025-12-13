@@ -38,6 +38,8 @@ Library:OnUnload(function()
 end)
 
 -- UI Settings
+print(Tabs)
+print(Tabs.Settings)
 local MenuGroup = Tabs.Settings:AddLeftGroupbox('Menu')
 
 MenuGroup:AddToggle("KeybindMenuOpen", { Default = Library.KeybindFrame.Visible, Text = "Open Keybind Menu", Callback = function(value) Library.KeybindFrame.Visible = value end})
