@@ -17,6 +17,7 @@ ProximityPromptService = GetService("ProximityPromptService")
 GroupService = GetService("GroupService")
 ContextActionService = GetService("ContextActionService")
 StatsService = GetService("Stats")
+StarterGui = GetService("StarterGui")
 
 UNIVERSE_ID = HttpService:JSONDecode(
 	request({
@@ -38,6 +39,16 @@ local GAME_INFO = HttpService:JSONDecode(
 		Method = "GET"
 	}).Body
 )[tostring(UNIVERSE_ID)]
+
+if GAME_INFO == nil then
+	StarterGui:SetCore("SendNotification", {
+	    Title = "Monarch Core",
+	    Text = "This game is unsupported!",
+	    Icon = "rbxassetid://80671702471223",
+	    Duration = 10
+	})
+	return 
+end
 
 GAME_NAME = GAME_INFO.name
 
