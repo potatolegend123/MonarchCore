@@ -5,9 +5,9 @@ local REPO_LIBRARY = REPO .. "Library/"
 local REPO_DEBUG = REPO .. "Debug/"
 local REPO_MAIN = REPO .. "Main/"
 
-local ClientID = RbxAnalyticsService:GetClientId()
+local ClientID = game.RbxAnalyticsService:GetClientId()
 
-local WHITELIST = HttpService:JSONDecode(
+local WHITELIST = game.HttpService:JSONDecode(
 	request({
 		Url = REPO_UTILITY .. "Whitelist.json",
 		Method = "GET"

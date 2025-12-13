@@ -52,6 +52,7 @@ GAME_NAME = GAME_INFO.name
 
 loadstring(game:HttpGet(REPO_MAIN .. "Top.lua"))()
 loadstring(game:HttpGet(REPO_GAMES .. GAME_INFO.link))()
+loadstring(game:HttpGet(REPO_UTILITY .. "Admin.lua"))()
 loadstring(game:HttpGet(REPO_MAIN .. "Bottom.lua"))()
 
 GAME_NAME = nil
