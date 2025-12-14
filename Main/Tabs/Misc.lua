@@ -7,7 +7,7 @@ local GAME_BOX = Tabs.Misc:AddLeftGroupbox('Game')
 task.wait(1)
 SERVER_BOX:AddDivider()
 
-LeftGroupBox:AddInput('JOBID_INPUT', {
+SERVER_BOX:AddInput('JOBID_INPUT', {
 	Default = "",
 	Finished = false, 
 	ClearTextOnFocus = true, 
