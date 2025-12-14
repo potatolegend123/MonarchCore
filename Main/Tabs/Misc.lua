@@ -4,7 +4,8 @@ local SERVER_BOX = Tabs.Misc:AddLeftGroupbox('Server')
 local CHARACTER_BOX = Tabs.Misc:AddRightGroupbox('Character')
 local GAME_BOX = Tabs.Misc:AddLeftGroupbox('Game')
 
-task.wait(1)
+task.wait()
+
 SERVER_BOX:AddDivider()
 
 SERVER_BOX:AddInput('JOBID_INPUT', {

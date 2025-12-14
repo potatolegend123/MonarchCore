@@ -2,7 +2,7 @@ Tabs.Visuals = Window:AddTab('Visuals')
 
 local MAIN_BOX = Tabs.Visuals:AddLeftGroupbox('Main')
 
-task.wait(1)
+task.wait()
 
 ESPLibrary = loadstring(game:HttpGet(REPO.LIBRARY .. "ESP.lua"))()
 
