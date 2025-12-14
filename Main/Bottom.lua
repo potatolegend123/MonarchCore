@@ -22,11 +22,11 @@ Troves.Global:Connect(RunService.RenderStepped, function()
 
 	if CanDoPing then
 		Library:SetWatermark((
-			`Monarch Core | {math.floor(FPS)} fps | {GetPing()} ms | Server Runtime: {TextModule:Timer(game.Workspace.DistributedGameTime)} | Script Runtime: {TextModule:Timer(os.time() - TimeExecuted)}`
+			`Monarch Core | {math.floor(FPS)} fps | {GetPing()} ms | Play time: {TextModule:Timer(game.Workspace.DistributedGameTime)} | Script Runtime: {TextModule:Timer(os.time() - TimeExecuted)}`
 		));
 	else
 		Library:SetWatermark((
-			`Monarch Core | {math.floor(FPS)} fps | Server Runtime: {TextModule:Timer(game.Workspace.DistributedGameTime)} | Script Runtime: {TextModule:Timer(os.time( ) - TimeExecuted)}`
+			`Monarch Core | {math.floor(FPS)} fps | Server Runtime: {TextModule:Timer(game.Workspace.DistributedGameTime)} | Play time: {TextModule:Timer(os.time( ) - TimeExecuted)}`
 		));
 	end
 end);

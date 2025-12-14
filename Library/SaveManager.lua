@@ -49,6 +49,13 @@ local SaveManager = {} do
     SaveManager.SubFolder = ""
     SaveManager.Ignore = {}
     SaveManager.Library = nil
+    
+    -- // NEW VARIABLES FOR AUTO SAVE \\ --
+    SaveManager.CurrentConfig = nil
+    SaveManager.IsLoading = false
+    SaveManager.DebounceTime = 1 -- How many seconds to wait before auto-saving
+    -- // --------------------------- \\ --
+
     SaveManager.Parser = {
         Toggle = {
             Save = function(idx, object)
@@ -238,6 +245,10 @@ local SaveManager = {} do
         end
 
         writefile(fullPath, encoded)
+        
+        -- Update the current config tracker
+        self.CurrentConfig = name
+        
         return true
     end
 
@@ -245,6 +256,11 @@ local SaveManager = {} do
         if (not name) then
             return false, 'no config file is selected'
         end
+        
+        -- Prevent auto-save from triggering while loading
+        self.IsLoading = true 
+        self.CurrentConfig = name
+        
         SaveManager:CheckFolderTree()
 
         local file = self.Folder .. '/settings/' .. name .. '.json'
@@ -252,10 +268,16 @@ local SaveManager = {} do
             file = self.Folder .. "/settings/" .. self.SubFolder .. "/" .. name .. '.json'
         end
 
-        if not isfile(file) then return false, 'invalid file' end
+        if not isfile(file) then 
+            self.IsLoading = false
+            return false, 'invalid file' 
+        end
 
         local success, decoded = pcall(HttpService.JSONDecode, HttpService, readfile(file))
-        if not success then return false, 'decode error' end
+        if not success then 
+            self.IsLoading = false
+            return false, 'decode error' 
+        end
 
         for _, option in next, decoded.objects do
             if not option.type then continue end
@@ -265,6 +287,7 @@ local SaveManager = {} do
             task.spawn(self.Parser[option.type].Load, option.idx, option) -- task.spawn() so the config loading wont get stuck.
         end
 
+        self.IsLoading = false
         return true
     end
 
@@ -282,6 +305,11 @@ local SaveManager = {} do
 
         local success = pcall(delfile, file)
         if not success then return false, 'delete file error' end
+
+        -- If we deleted the active config, clear it so we don't auto-save to nothing
+        if self.CurrentConfig == name then
+            self.CurrentConfig = nil
+        end
 
         return true
     end
@@ -411,11 +439,68 @@ local SaveManager = {} do
         return true, ""
     end
 
+    --// Auto Save Functions \\--
+    function SaveManager:DebouncedSave()
+        -- 1. Check if we are loading (to prevent loops)
+        if self.IsLoading then return end
+
+        -- 2. Check if Auto Save toggle exists and is enabled
+        local autoSaveToggle = self.Library.Toggles.SaveManager_AutoSave
+        if not autoSaveToggle or not autoSaveToggle.Value then return end
+
+        -- 3. Check if we have a file selected
+        if not self.CurrentConfig then return end
+
+        -- 4. Debounce logic (prevent spamming)
+        local timeNow = tick()
+        self.LastChange = timeNow
+
+        task.delay(self.DebounceTime, function()
+            -- Only save if this specific change was the last one made (x seconds ago)
+            if self.LastChange == timeNow then
+                self:Save(self.CurrentConfig)
+                -- Optional: Notify the user
+                -- self.Library:Notify("Auto saved config")
+            end
+        end)
+    end
+
+    function SaveManager:HookAutoSave()
+        -- Loop through Toggles
+        for _, toggle in next, self.Library.Toggles do
+            if toggle.SetValue then
+                local old = toggle.SetValue
+                toggle.SetValue = function(s, ...)
+                    local ret = old(s, ...)
+                    self:DebouncedSave()
+                    return ret
+                end
+            end
+        end
+
+        -- Loop through Options (Sliders, etc)
+        for _, option in next, self.Library.Options do
+            if option.SetValue then
+                local old = option.SetValue
+                option.SetValue = function(s, ...)
+                    local ret = old(s, ...)
+                    self:DebouncedSave()
+                    return ret
+                end
+            end
+        end
+    end
+
     --// GUI \\--
     function SaveManager:BuildConfigSection(tab)
         assert(self.Library, 'SaveManager:BuildConfigSection -> Must set SaveManager.Library')
 
         local section = tab:AddRightGroupbox('Configuration')
+
+        section:AddDivider()
+
+        -- ADDED AUTO SAVE TOGGLE HERE
+        section:AddToggle('SaveManager_AutoSave', { Text = 'Auto Save', Default = false, Tooltip = 'Automatically saves changes to the selected config' })
 
         section:AddInput('SaveManager_ConfigName',    { Text = 'Config name' })
         section:AddButton('Create config', function()
@@ -509,7 +594,7 @@ local SaveManager = {} do
         self.AutoloadConfigLabel = section:AddLabel("Current autoload config: " .. self:GetAutoloadConfig(), true)
 
         -- self:LoadAutoloadConfig()
-        self:SetIgnoreIndexes({ 'SaveManager_ConfigList', 'SaveManager_ConfigName' })
+        self:SetIgnoreIndexes({ 'SaveManager_ConfigList', 'SaveManager_ConfigName', 'SaveManager_AutoSave' })
     end
 
     SaveManager:BuildFolderTree()

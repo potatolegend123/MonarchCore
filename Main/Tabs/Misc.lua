@@ -3,6 +3,7 @@ Tabs.Misc = Window:AddTab('Misc')
 local SERVER_BOX = Tabs.Misc:AddLeftGroupbox('Server')
 local CHARACTER_BOX = Tabs.Misc:AddRightGroupbox('Character')
 
+SERVER_BOX:AddDivider()
 SERVER_BOX:AddButton({
 	Text = 'Rejoin',
 	Func = function()
@@ -50,7 +51,7 @@ SERVER_BOX:AddButton({
         task.wait(1)
         serverHopping = false
 	end,
-	Tooltip = 'Rejoin the same server',
+	Tooltip = 'Join a different server',
 	Visible = true -- Will make the button invisible (true / false)
 })
 
@@ -86,7 +87,7 @@ SERVER_BOX:AddButton({
         task.wait(1)
         lowestServer = false
 	end,
-	Tooltip = 'Rejoin the same server',
+	Tooltip = 'Join the server with the lowest player count',
 	Visible = true -- Will make the button invisible (true / false)
 })
 
