@@ -12,6 +12,7 @@ local MAIN_BOX = Tabs.Main:AddLeftGroupbox('Autos')
 
 task.wait()
 
+MAIN_BOX:AddDivider()
 MAIN_BOX:AddToggle('ATTACK_TOGGLE', {
 	Text = 'Auto Attack',
 	Default = false,
