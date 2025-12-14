@@ -120,8 +120,17 @@ CHARACTER_BOX:AddToggle('NOCLIP_TOGGLE', {
     Text = 'Noclip',
     Default = false,
 })
+CHARACTER_BOX:AddToggle('INFINITE_JUMP_TOGGLE', {
+    Text = 'Infinite Jump',
+    Default = false,
+})
 
-RunService.Heartbeat:Connect(function()
+Troves.Global:Connect(UserInputService.JumpRequest, function()
+    if not Toggles.INFINITE_JUMP_TOGGLE.Value or _PLAYER.Alive == false then return end
+    Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+end)
+
+RunService.RenderStepped:Connect(function()
     if _PLAYER.Alive then
         if Toggles.WALKSPEED_TOGGLE.Value then
             Humanoid.WalkSpeed = Options.WALKSPEED_SLIDER.Value

@@ -10,7 +10,7 @@ end
 Tabs.Main = Window:AddTab('Main')
 local MAIN_BOX = Tabs.Main:AddLeftGroupbox('Autos')
 
-task.wait()
+task.wait(1)
 
 MAIN_BOX:AddDivider()
 MAIN_BOX:AddToggle('ATTACK_TOGGLE', {

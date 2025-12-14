@@ -11,7 +11,7 @@ _PLAYER = {
 
 local function onCharacterAdded(NewCharacter)
     Character = NewCharacter
-    Humanoid = Character:WaitForChild("Humanoid")
+    Humanoid = Character:FindFirstChildWhichIsA("Humanoid") or Character:WaitForChild("Humanoid")
     RootPart = Character:WaitForChild("HumanoidRootPart")
     Backpack = LocalPlayer:WaitForChild("Backpack")
     PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
