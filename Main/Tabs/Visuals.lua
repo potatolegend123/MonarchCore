@@ -7,17 +7,10 @@ task.wait(1)
 ESPLibrary = loadstring(game:HttpGet(REPO.LIBRARY .. "ESP.lua"))()
 
 MAIN_BOX:AddDivider()
-MAIN_BOX:AddToggle('ATTACK_TOGGLE', {
-	Text = 'Auto Attack',
+MAIN_BOX:AddToggle('ESP_BOX_TOGGLE', {
+	Text = 'Box ESP',
 	Default = false,
     Callback = function(value)
-        if Value == false then return end
-        task.spawn(function()
-            while Toggles.ATTACK_TOGGLE.Value do
-                if Library.Unloaded then break end
-                Services.ToolService:ToolActivated("Weapon")
-                task.wait(0.1)
-            end
-        end)
+        ESPLibrary.box.enabled = value
     end,
 })
