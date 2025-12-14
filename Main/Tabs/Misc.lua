@@ -3,6 +3,7 @@ Tabs.Misc = Window:AddTab('Misc')
 local SERVER_BOX = Tabs.Misc:AddLeftGroupbox('Server')
 local CHARACTER_BOX = Tabs.Misc:AddRightGroupbox('Character')
 
+task.wait()
 SERVER_BOX:AddDivider()
 SERVER_BOX:AddButton({
 	Text = 'Rejoin',

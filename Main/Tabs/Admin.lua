@@ -12,15 +12,16 @@ if not WHITELIST[tostring(ClientID)] then
 end
 
 Tabs.Admin = Window:AddTab('Admin')
+local AdminBox = Tabs.Admin:AddLeftGroupbox('Debug Tools')
 
-Tabs.Admin:AddButton({
+task.wait()
+AdminBox:AddButton({
 	Text = 'Dex++',
 	Func = function()
 		loadstring(game:HttpGet(REPO.DEBUG .. "Dex++.lua"))()
 	end,
 })
-
-Tabs.Admin:AddButton({
+AdminBox:AddButton({
 	Text = 'Simple Remote Spy',
 	Func = function()
 		loadstring(game:HttpGet(REPO.DEBUG .. "SimpleRemoteSpy.lua"))()

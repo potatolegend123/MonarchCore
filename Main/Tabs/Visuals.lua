@@ -1,5 +1,7 @@
 Tabs.Visuals = Window:AddTab('Visuals')
 
+task.wait()
+
 ESPLibrary = loadstring(game:HttpGet(REPO.LIBRARY .. "ESP.lua"))()
 
 ESPLibrary.teamSettings.enemy.enabled = true
