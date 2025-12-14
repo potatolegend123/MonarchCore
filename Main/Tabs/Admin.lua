@@ -11,6 +11,18 @@ if not WHITELIST[tostring(ClientID)] then
     return -- not an authorized user
 end
 
-print("Monarch Core: Authorized user detected. Loading script...")
-
 Tabs.Admin = Window:AddTab('Admin')
+
+Tabs.Admin:AddButton({
+	Text = 'Dex++',
+	Func = function()
+		loadstring(game:HttpGet(REPO.DEBUG .. "Dex++.lua"))()
+	end,
+})
+
+Tabs.Admin:AddButton({
+	Text = 'Simple Remote Spy',
+	Func = function()
+		loadstring(game:HttpGet(REPO.DEBUG .. "SimpleRemoteSpy.lua"))()
+	end,
+})
