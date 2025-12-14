@@ -10,6 +10,7 @@ SERVER_BOX:AddDivider()
 
 SERVER_BOX:AddInput('JOBID_INPUT', {
 	Default = "",
+    Text = 'Job Id',
 	Finished = false, 
 	ClearTextOnFocus = true, 
 	Placeholder = 'Enter Place Id',
