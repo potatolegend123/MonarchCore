@@ -105,40 +105,7 @@ LeftGroupBox:AddToggle('MyToggle', {
 	end
 })
 
-LeftGroupBox:AddDivider()
-LeftGroupBox:AddSlider('SpeedSlider', {
-	Text = 'Change Speed:',
-	Default = 0,
-	Min = 0,
-	Max = 100,
-	Rounding = 0,
-	Compact = false,
 
-	Callback = function(Value)
-		print('[cb] MySlider was changed! New value:', Value)
-	end,
-
-	Tooltip = 'I am a slider!', -- Information shown when you hover over the slider
-	DisabledTooltip = 'I am disabled!', -- Information shown when you hover over the slider while it's disabled
-
-	Disabled = false, -- Will disable the slider (true / false)
-	Visible = true, -- Will make the slider invisible (true / false)
-})
-LeftGroupBox:AddToggle('SpeedToggle', {
-	Text = 'Enabled',
-	Tooltip = 'This is a tooltip', -- Information shown when you hover over the toggle
-	DisabledTooltip = 'I am disabled!', -- Information shown when you hover over the toggle while it's disabled
-
-	Default = true, -- Default value (true / false)
-	Disabled = false, -- Will disable the toggle (true / false)
-	Visible = true, -- Will make the toggle invisible (true / false)
-	Risky = false, -- Makes the text red (the color can be changed using Library.RiskColor) (Default value = false)
-
-	Callback = function(Value)
-		print('[cb] MyToggle changed to:', Value)
-	end
-})
-LeftGroupBox:AddDivider()
 -- Fetching a toggle object for later use:
 -- Toggles.MyToggle.Value
 
@@ -186,18 +153,11 @@ local MyButton = LeftGroupBox:AddButton({
 	Visible = true -- Will make the button invisible (true / false)
 })
 
-local MyButton67 = MyButton:AddButton({
-	Text = 'Notification Test',
+local MyButton2 = MyButton:AddButton({
+	Text = 'Sub button',
 	Func = function()
 		print('You clicked a sub button!')
-		Library:Notify({
-			Title = "Title",
-            Description = "This is a description",
-            Time = 5,
-            SoundId = 4590657391,
-            -- Steps = Info.Steps
-            -- Persist = Info.Persist
-		})
+		Library:Notify("This is a notification with sound", nil, 4590657391)
 	end,
 	DoubleClick = true, -- You will have to click this button twice to trigger the callback
 	Tooltip = 'This is the sub button (double click me!)'

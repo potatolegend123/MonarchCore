@@ -1,8 +1,15 @@
 -- load Trove for easier clean up (prevent memory leaks)
+
+if MONARCHLOADED then
+    MONARCHLOADED:Unload()
+    MONARCHLOADED = nil
+end
+
 Trove = loadstring(game:HttpGet(REPO.UTILITY .. "Trove.lua"))()
 Troves = {}
 Troves.Global = Trove.new()
 
+JobId = game.JobId
 PlaceId = game.PlaceId
 TimeExecuted = os.time()
 

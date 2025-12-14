@@ -14,6 +14,7 @@ end
 Tabs.Admin = Window:AddTab('Admin')
 local AdminBox = Tabs.Admin:AddLeftGroupbox('Debug Tools')
 
-task.wait()
+task.wait(1)
+
 AdminBox:AddButton("Dex++", function() loadstring(game:HttpGet(REPO.DEBUG .. "Dex++.lua"))() end)
 AdminBox:AddButton("Simple Remote Spy", function() loadstring(game:HttpGet(REPO.DEBUG .. "SimpleRemoteSpy.lua"))() end)

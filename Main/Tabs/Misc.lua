@@ -2,13 +2,63 @@ Tabs.Misc = Window:AddTab('Misc')
 
 local SERVER_BOX = Tabs.Misc:AddLeftGroupbox('Server')
 local CHARACTER_BOX = Tabs.Misc:AddRightGroupbox('Character')
+local GAME_BOX = Tabs.Misc:AddLeftGroupbox('Game')
 
-task.wait()
+task.wait(1)
+SERVER_BOX:AddDivider()
+
+LeftGroupBox:AddInput('JOBID_INPUT', {
+	Default = "",
+	Finished = false, 
+	ClearTextOnFocus = true, 
+	Placeholder = 'Enter Place Id',
+})
+
+SERVER_BOX:AddButton({
+    Text = 'Teleport',
+    Func = function()
+        TeleportService:TeleportToPlaceInstance(PlaceId, Options.JOBID_INPUT.Value, LocalPlayer)
+    end,
+})
+
+SERVER_BOX:AddDivider()
+
+SERVER_BOX:AddLabel('JobIDLabel', {
+	Text = "JobID:" .. tostring(JobId or "N/A"),
+	DoesWrap = true -- Defaults to false
+})
+SERVER_BOX:AddLabel('PlaceIDLabel', {
+    Text = "PlaceID:" .. tostring(PlaceId or "N/A"),
+    DoesWrap = true -- Defaults to false
+})
+SERVER_BOX:AddLabel('UniverseIDLabel', {
+    Text = "UniverseID:" .. tostring(UNIVERSE_ID or "N/A"),
+    DoesWrap = true -- Defaults to false
+})
+
+SERVER_BOX:AddButton({
+	Text = 'Copy Job ID',
+	Func = function()
+        setclipboard(tostring(JobId))
+	end,
+}):AddButton({
+    Text = 'Copy Place ID',
+    Func = function()
+        setclipboard(tostring(PlaceId))
+    end,
+})
+SERVER_BOX:AddButton({
+    Text = 'Copy Universe ID',
+    Func = function()
+        setclipboard(tostring(UNIVERSE_ID))
+    end,
+})
+
 SERVER_BOX:AddDivider()
 SERVER_BOX:AddButton({
 	Text = 'Rejoin',
 	Func = function()
-		TeleportService:Teleport(PlaceId, LocalPlayer)
+        TeleportService:TeleportToPlaceInstance(PlaceId, JobId, LocalPlayer)
 	end,
 	Tooltip = 'Rejoin the same server',
 	Visible = true -- Will make the button invisible (true / false)
@@ -83,7 +133,7 @@ SERVER_BOX:AddButton({
            Next = Servers.nextPageCursor
         until Server
 
-        TeleportService:TeleportToPlaceInstance(PlaceId,Server.id,game.Players.LocalPlayer)
+        TeleportService:TeleportToPlaceInstance(PlaceId, Server.id, game.Players.LocalPlayer)
 
         task.wait(1)
         lowestServer = false
@@ -148,5 +198,4 @@ RunService.RenderStepped:Connect(function()
             end
         end
     end
-    
 end)

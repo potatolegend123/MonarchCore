@@ -31,3 +31,19 @@ end
 Troves.PlayerTrove:Connect(LocalPlayer.CharacterAdded, onCharacterAdded)
 
 onCharacterAdded(LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait())
+
+-- ANTI AFK
+if getconnections then
+    for _, connection in pairs(getconnections(LocalPlayer.Idled)) do
+        if connection["Disable"] then
+            connection["Disable"](connection)
+        elseif connection["Disconnect"] then
+            connection["Disconnect"](connection)
+        end
+    end
+else
+    LocalPlayer.Idled:Connect(function()
+        VirtualUser:CaptureController()
+        VirtualUser:ClickButton2(Vector2.new())
+    end)
+end
