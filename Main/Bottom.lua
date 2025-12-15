@@ -32,7 +32,7 @@ Troves.Global:Connect(RunService.RenderStepped, function()
 end);
 
 Library:OnUnload(function()
-	ESPLibrary.Unload()
+	ESPLibrary.cleanup()
 	for i, v in Troves do
 		v:Destroy()
 		v = nil

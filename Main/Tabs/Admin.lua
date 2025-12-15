@@ -1,3 +1,5 @@
+local URL = "https://raw.githubusercontent.com/potatolegend123/MonarchCore/main/Debug/"
+
 local ClientID = game.RbxAnalyticsService:GetClientId()
 
 local WHITELIST = game.HttpService:JSONDecode(
@@ -14,7 +16,17 @@ end
 Tabs.Admin = Window:AddTab('Admin')
 local AdminBox = Tabs.Admin:AddLeftGroupbox('Debug Tools')
 
-task.wait(1)
+task.wait()
 
-AdminBox:AddButton("Dex++", function() loadstring(game:HttpGet(REPO.DEBUG .. "Dex++.lua"))() end)
-AdminBox:AddButton("Simple Remote Spy", function() loadstring(game:HttpGet(REPO.DEBUG .. "SimpleRemoteSpy.lua"))() end)
+AdminBox:AddButton({
+    Text = 'Dex++',
+    Func = function()
+        loadstring(game:HttpGet(URL .. "Dex++.lua"))()
+    end,
+})
+AdminBox:AddButton({
+    Text = 'Simple Remote Spy',
+    Func = function()
+        loadstring(game:HttpGet(URL .. "SimpleRemoteSpy.lua"))()
+    end,
+})

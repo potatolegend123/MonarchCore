@@ -19,7 +19,7 @@ REPO = {
 local HttpService = game:GetService("HttpService")
 local StarterGui = game:GetService("StarterGui")
 
-local UNIVERSE_ID = HttpService:JSONDecode(
+UNIVERSE_ID = HttpService:JSONDecode(
 	request({
 		Url = `https://apis.roblox.com/universes/v1/places/{game.PlaceId}/universe`,
 		Method = "GET"

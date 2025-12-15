@@ -6,52 +6,6 @@
     Written by tul (@.lutyeh).
 
 ]]
-
--- // table
-local library = {}
-if not library then
-    library = {
-        box = {
-            enabled = false,
-            type = "normal", -- normal, corner
-            padding = 1.15,
-            fill = Color3.new(1,1,1),
-            outline = Color3.new(0,0,0),
-        },
-        healthbar = {
-            enabled = false,
-            fill = Color3.new(0,1,0),
-            outline = Color3.new(0,0,0),
-        },
-        name = {
-            enabled = false,
-            fill = Color3.new(1,1,1),
-            size = 13,
-        },
-        distance = {
-            enabled = false,
-            fill = Color3.new(1,1,1),
-            size = 13,
-        },
-        tracer = {
-            enabled = false,
-            fill = Color3.new(1,1,1),
-            outline = Color3.new(0,0,0),
-            from = "mouse", -- mouse, head, top, bottom, center
-        },
-    }
-end
-
-local espinstances = {}
-local espfunctions = {}
-local caches = {}
-
--- // services
-local run_service = game:GetService("RunService")
-local players = game:GetService("Players")
-local user_input_service = game:GetService("UserInputService")
-local camera = workspace.CurrentCamera
-
 local Trove = Trove or loadstring(game:HttpGet("https://raw.githubusercontent.com/potatolegend123/MonarchCore/main/Utility/Trove.lua"))()
 
 if not Troves then
@@ -59,6 +13,48 @@ if not Troves then
 end
 
 Troves.ESP = Trove.new()
+
+-- // table
+local library = {
+    enabled = false,
+    box = {
+        enabled = false,
+        type = "normal", -- normal, corner
+        padding = 1.15,
+        fill = Color3.new(1,1,1),
+        outline = Color3.new(0,0,0),
+    },
+    healthbar = {
+        enabled = false,
+        fill = Color3.new(0,1,0),
+        outline = Color3.new(0,0,0),
+    },
+    name = {
+        enabled = false,
+        fill = Color3.new(1,1,1),
+        size = 13,
+    },
+    distance = {
+        enabled = false,
+        fill = Color3.new(1,1,1),
+        size = 13,
+    },
+    tracer = {
+        enabled = false,
+        fill = Color3.new(1,1,1),
+        outline = Color3.new(0,0,0),
+        from = "bottom", -- mouse, head, top, bottom, center
+    },
+}
+
+local espinstances = {}
+local espfunctions = {}
+
+-- // services
+local run_service = game:GetService("RunService")
+local players = game:GetService("Players")
+local user_input_service = game:GetService("UserInputService")
+local camera = workspace.CurrentCamera
 
 -- // functions
 local function get_bounding_box(instance)
@@ -140,6 +136,80 @@ local function get_bounding_box(instance)
     return min, max, onscreen
 end
 
+local old_config = {}
+function espfunctions.enable(bool)
+    library.enabled = bool
+    if bool == false then
+        for instance, data in espinstances do
+            old_config[instance] = {}
+            if data.box then
+                old_config[instance].box_outline = data.box.outline.Visible
+                old_config[instance].box_fill = data.box.fill.Visible
+                data.box.outline.Visible = false
+                data.box.fill.Visible = false
+
+                for i, line in ipairs(data.box.corner_fill) do
+                    old_config[instance]["box_corner_fill_" .. i] = line.Visible
+                    line.Visible = false
+                end
+                for i, line in ipairs(data.box.corner_outline) do
+                    old_config[instance]["box_corner_outline_" .. i] = line.Visible
+                    line.Visible = false
+                end
+            end
+            if data.healthbar then
+                old_config[instance].healthbar_outline = data.healthbar.outline.Visible
+                old_config[instance].healthbar_fill = data.healthbar.fill.Visible
+                data.healthbar.outline.Visible = false
+                data.healthbar.fill.Visible = false
+            end
+            if data.name then
+                old_config[instance].name = data.name.Visible
+                data.name.Visible = false
+            end
+            if data.distance then
+                old_config[instance].distance = data.distance.Visible
+                data.distance.Visible = false
+            end
+            if data.tracer then
+                old_config[instance].tracer_outline = data.tracer.outline.Visible
+                old_config[instance].tracer_fill = data.tracer.fill.Visible
+                data.tracer.outline.Visible = false
+                data.tracer.fill.Visible = false
+            end
+        end
+    else
+        for instance, data in espinstances do
+            if old_config[instance] then
+                if data.box then
+                    data.box.outline.Visible = old_config[instance].box_outline
+                    data.box.fill.Visible = old_config[instance].box_fill
+                    for i, line in ipairs(data.box.corner_fill) do
+                        line.Visible = old_config[instance]["box_corner_fill_" .. i]
+                    end
+                    for i, line in ipairs(data.box.corner_outline) do
+                        line.Visible = old_config[instance]["box_corner_outline_" .. i]
+                    end
+                end
+                if data.healthbar then
+                    data.healthbar.outline.Visible = old_config[instance].healthbar_outline
+                    data.healthbar.fill.Visible = old_config[instance].healthbar_fill
+                end
+                if data.name then
+                    data.name.Visible = old_config[instance].name
+                end
+                if data.distance then
+                    data.distance.Visible = old_config[instance].distance
+                end
+                if data.tracer then
+                    data.tracer.outline.Visible = old_config[instance].tracer_outline
+                    data.tracer.fill.Visible = old_config[instance].tracer_fill
+                end
+            end
+        end
+    end
+end
+
 function espfunctions.add_box(instance)
     if not instance or espinstances[instance] and espinstances[instance].box then return end
 
@@ -173,7 +243,6 @@ function espfunctions.add_box(instance)
         fill.Transparency = 1
         fill.Visible = false
         table.insert(box.corner_fill, fill)
-
         table.insert(box.corner_outline, outline)
     end
 
@@ -240,6 +309,20 @@ function espfunctions.add_tracer(instance)
     }
 end
 
+local function character_added(character)
+    espfunctions.add_box(character)
+    espfunctions.add_healthbar(character)
+    espfunctions.add_name(character)
+    espfunctions.add_distance(character)
+    espfunctions.add_tracer(character)
+end
+
+function espfunctions.add_player(player)
+    if player == players.LocalPlayer then return end
+    character_added(player.Character or player.CharacterAdded:Wait())
+    Troves.ESP:Connect(player.CharacterAdded, character_added)
+end
+
 function espfunctions.cleanup()
 	Troves.ESP:Destroy()
 	for instance, data in pairs(espinstances) do
@@ -271,7 +354,8 @@ function espfunctions.cleanup()
 end
 
 -- // main thread
-Troves.ESP:Add(run_service.RenderStepped, function()
+Troves.ESP:Connect(run_service.RenderStepped, function()
+    if not library.enabled then return end
     for instance, data in pairs(espinstances) do
         if not instance or not instance.Parent then
             if data.box then
@@ -527,6 +611,12 @@ end)
 -- // return
 for k, v in pairs(espfunctions) do
     library[k] = v
+end
+
+Troves.ESP:Connect(players.PlayerAdded, espfunctions.add_player)
+
+for i,v in pairs(players:GetPlayers()) do
+    library.add_player(v)
 end
 
 return library
