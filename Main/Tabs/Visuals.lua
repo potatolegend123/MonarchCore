@@ -97,7 +97,7 @@ MAIN_BOX:AddToggle('ESP_TRACER_TOGGLE', {
         ESPLibrary.tracer.outline = Value
     end
 })
-MAIN_BOX:Dropdown('ESP_TRACER_FROM', {
+MAIN_BOX:AddDropdown('ESP_TRACER_FROM', {
     Values = { "Mouse", "Head", "Top", "Bottom", "Center" },
     Default = 4,
     Multi = false, 
