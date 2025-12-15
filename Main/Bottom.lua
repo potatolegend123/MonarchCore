@@ -69,3 +69,5 @@ ThemeManager:ApplyToTab(Tabs.Settings)
 
 SaveManager:HookAutoSave()
 SaveManager:LoadAutoloadConfig()
+
+Library:Toggle(true)

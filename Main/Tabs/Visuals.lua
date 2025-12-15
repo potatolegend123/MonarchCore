@@ -11,16 +11,16 @@ MAIN_BOX:AddDivider()
 MAIN_BOX:AddToggle('ESP_ENABLED', {
 	Text = 'Enabled ESP',
 	Default = false,
-    Callback = function(value)
-        ESPLibrary.enable(value)
+    Callback = function(Value)
+        ESPLibrary.enable(Value)
     end,
 })
 MAIN_BOX:AddDivider()
 MAIN_BOX:AddToggle('ESP_BOX_TOGGLE', {
 	Text = 'Box ESP',
 	Default = false,
-    Callback = function(value)
-        ESPLibrary.box.enabled = value
+    Callback = function(Value)
+        ESPLibrary.box.enabled = Value
     end,
 }):AddColorPicker('ESP_BOX_FILLED', {
 	Default = Color3.new(1,1,1),
@@ -52,13 +52,16 @@ MAIN_BOX:AddSlider('ESP_BOX_PADDING', {
 	Min = 0,
 	Max = 10,
 	Rounding = 2,
+    Callback = function(Value)
+		ESPLibrary.box.padding = Value
+	end,
 })
 MAIN_BOX:AddDivider()
 MAIN_BOX:AddToggle('ESP_DISTANCE_TOGGLE', {
 	Text = 'Show Distance',
 	Default = false,
-    Callback = function(value)
-        ESPLibrary.distnace.enabled = value
+    Callback = function(Value)
+        ESPLibrary.distance.enabled = Value
     end,
 }):AddColorPicker('ESP_DISTANCE_FILL', {
     Default = Color3.new(1,1,1),
@@ -74,13 +77,16 @@ MAIN_BOX:AddSlider('ESP_DISTANCE_TEXT_SIZE', {
     Min = 1,
     Max = 50,
     Rounding = 0,
+    Callback = function(Value)
+		ESPLibrary.distance.size = Value
+	end,
 })
 MAIN_BOX:AddDivider()
 MAIN_BOX:AddToggle('ESP_TRACER_TOGGLE', {
 	Text = 'Show Tracers',
 	Default = false,
-    Callback = function(value)
-        ESPLibrary.tracer.enabled = value
+    Callback = function(Value)
+        ESPLibrary.tracer.enabled = Value
     end,
 }):AddColorPicker('ESP_TRACER_FILL', {
     Default = Color3.new(1,1,1),
@@ -111,8 +117,8 @@ PLAYERS_BOX:AddDivider()
 PLAYERS_BOX:AddToggle('ESP_NAME_TOGGLE', {
     Text = 'Name ESP',
     Default = false,
-    Callback = function(value)
-        ESPLibrary.name.enabled = value
+    Callback = function(Value)
+        ESPLibrary.name.enabled = Value
     end,
 }):AddColorPicker('ESP_NAME_FILL', {
     Default = Color3.new(1,1,1),
@@ -128,26 +134,29 @@ PLAYERS_BOX:AddSlider('ESP_NAME_TEXT_SIZE', {
 	Min = 1,
 	Max = 50,
 	Rounding = 0,
+    Callback = function(Value)
+		ESPLibrary.healthbar.size = Value
+	end,
 })
 PLAYERS_BOX:AddDivider()
 PLAYERS_BOX:AddToggle('ESP_HEALTH_TOGGLE', {
     Text = 'Health ESP',
     Default = false,
-    Callback = function(value)
-        ESPLibrary.health.enabled = value
+    Callback = function(Value)
+        ESPLibrary.healthbar.enabled = Value
     end,
 }):AddColorPicker('ESP_HEALTH_FILL', {
     Default = Color3.new(0,1,0),
     Title = 'Fill',
 
     Callback = function(Value, Transparency)
-        ESPLibrary.health.fill = Value
+        ESPLibrary.healthbar.fill = Value
     end
 }):AddColorPicker('ESP_HEALTH_OUTLINE', {
     Default = Color3.new(0,0,0),
     Title = 'Outline',
 
     Callback = function(Value, Transparency)
-        ESPLibrary.health.outline = Value
+        ESPLibrary.healthbar.outline = Value
     end
 })

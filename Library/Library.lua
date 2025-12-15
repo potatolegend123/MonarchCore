@@ -1057,8 +1057,6 @@ function Library:Unload()
 
     ScreenGui:Destroy()
     Library.Unloaded = true
-
-    getgenv().Linoria = nil
 end
 
 function Library:OnUnload(Callback)
@@ -7529,6 +7527,5 @@ Library:GiveSignal(RunService.RenderStepped:Connect(function(Delta)
 end))
 
 ----
-getgenv().Linoria = Library
-if getgenv().skip_getgenv_linoria ~= true then getgenv().Library = Library end
+
 return Library
